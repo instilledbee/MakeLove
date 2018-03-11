@@ -1,16 +1,16 @@
-﻿using MakeLove.Core.Helpers;
+﻿using MakeLove.Core;
+using MakeLove.Core.Helpers;
 using System;
 using System.IO;
-using System.IO.Compression;
 
 namespace MakeLove.App
 {
     class Program
     {
-        const string LOVE_GAME_PATH = @"D:\Programming\Lua\fangirl";
-        const string BUILD_PATH = @"D:\Programming\Lua\fangirl-build";
-        const string BUILD_NAME = @"Fangirls.love";
-        const string LOVE_BIN_PATH = @"C:\Program Files\LOVE";
+        static readonly string LOVE_GAME_PATH = @"D:\Programming\Lua\fangirl\src";
+        static readonly string BUILD_PATH = @"D:\Programming\Lua\fangirl\bin";
+        static readonly string BUILD_NAME = @"Fangirls.love";
+        static readonly string LOVE_BIN_PATH = @"C:\Program Files\LOVE";
 
         static void Main(string[] args)
         {
@@ -18,33 +18,20 @@ namespace MakeLove.App
             Console.WriteLine("Version 0.1.0");
             Console.WriteLine("Written by InstilledBee");
 
-            FileSystemWatcher watcher = new FileSystemWatcher(LOVE_GAME_PATH);
-            watcher.Created += FileUpdated;
-            watcher.Changed += FileUpdated;
-            watcher.Deleted += FileUpdated;
-            watcher.Renamed += FileUpdated;
-            watcher.EnableRaisingEvents = true;
+            var monitor = new FileMonitor(LOVE_GAME_PATH);
+            monitor.OnFileChange += Monitor_OnFileChange;
+            monitor.Start();
 
             Console.WriteLine("Press any key to quit.");
             Console.ReadKey();
         }
 
-        static void FileUpdated(object sender, FileSystemEventArgs e)
+        static void Monitor_OnFileChange(object sender, FileSystemEventArgs e)
         {
             Console.WriteLine("Change detected: {0} {1}", e.FullPath, e.ChangeType);
-            CompressFiles();
-        }
 
-        static void CompressFiles()
-        {
-            var fullPath = String.Format(@"{0}\{1}", BUILD_PATH, BUILD_NAME);
-
-            if (File.Exists(fullPath))
-            {
-                File.Delete(fullPath);
-            }
-
-            ZipHelper.CreateFromDirectory(LOVE_GAME_PATH, fullPath, CompressionLevel.Fastest, false, x => !String.IsNullOrEmpty(x));
+            var packer = new Packer(BUILD_PATH, BUILD_NAME, LOVE_GAME_PATH);
+            packer.CompressFiles();
         }
     }
 }

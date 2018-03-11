@@ -9,7 +9,7 @@ namespace MakeLove.Core.Helpers
     /// <summary>
     /// Compression extension methods
     /// </summary>
-    public static class ZipHelper
+    internal static class ZipHelper
     {
         /// <summary>
         /// Create a zip archive from the specified source path, according to a specified filter
