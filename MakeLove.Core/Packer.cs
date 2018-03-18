@@ -23,9 +23,9 @@ namespace MakeLove.Core
             _gamePath = gamePath;
         }
 
-        public void CompressFiles()
+        public string CompressFiles()
         {
-            var fullPath = String.Format(@"{0}\{1}", _buildPath, _buildFileName);
+            var fullPath = Path.Combine(_buildPath, _buildFileName);
 
             if (File.Exists(fullPath))
             {
@@ -33,6 +33,8 @@ namespace MakeLove.Core
             }
 
             ZipHelper.CreateFromDirectory(_gamePath, fullPath, CompressionLevel.Fastest, false, x => !String.IsNullOrEmpty(x));
+
+            return fullPath;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MakeLove.Core;
-using MakeLove.Core.Helpers;
 using System;
 using System.IO;
 
@@ -9,6 +8,7 @@ namespace MakeLove.App
     {
         static readonly string LOVE_GAME_PATH = @"D:\Programming\Lua\fangirl\src";
         static readonly string BUILD_PATH = @"D:\Programming\Lua\fangirl\bin";
+        static readonly string WINDOWS_BUILD_PATH = @"D:\Programming\Lua\fangirl\bin\windows";
         static readonly string BUILD_NAME = @"Fangirls.love";
         static readonly string LOVE_BIN_PATH = @"C:\Program Files\LOVE";
 
@@ -31,7 +31,11 @@ namespace MakeLove.App
             Console.WriteLine("Change detected: {0} {1}", e.FullPath, e.ChangeType);
 
             var packer = new Packer(BUILD_PATH, BUILD_NAME, LOVE_GAME_PATH);
-            packer.CompressFiles();
+            var createdFilePath = packer.CompressFiles();
+
+            var windowsBuilder = new WindowsBuilder(LOVE_BIN_PATH, WINDOWS_BUILD_PATH);
+            windowsBuilder.PrepareDependencies();
+            windowsBuilder.Build(createdFilePath, "Fangirls.exe");
         }
     }
 }
