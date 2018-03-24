@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
+using MakeLove.Core.Helpers;
 
 namespace MakeLove.Core
 {
@@ -31,15 +32,7 @@ namespace MakeLove.Core
             };
 
             _workingDir = workingDirectory;
-            PrepareWorkingDirectory();
-        }
-
-        private void PrepareWorkingDirectory()
-        {
-            if(!Directory.Exists(_workingDir))
-            {
-                Directory.CreateDirectory(_workingDir);
-            }
+            DirectoryHelper.CreateIfNoneExists(_workingDir);
         }
 
         public void Build(string loveFilePath, string saveFileName)

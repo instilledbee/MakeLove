@@ -25,12 +25,12 @@ namespace MakeLove.Core
 
         public string CompressFiles()
         {
+            DirectoryHelper.CreateIfNoneExists(_buildPath);
+
             var fullPath = Path.Combine(_buildPath, _buildFileName);
 
             if (File.Exists(fullPath))
-            {
                 File.Delete(fullPath);
-            }
 
             ZipHelper.CreateFromDirectory(_gamePath, fullPath, CompressionLevel.Fastest, false, x => !String.IsNullOrEmpty(x));
 
