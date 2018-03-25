@@ -11,16 +11,18 @@ namespace MakeLove.Core
     public class FileMonitor
     {
         private FileSystemWatcher _watcher;
+        private string _lastFileName;
+        private DateTime _lastWriteTime;
 
         public event FileSystemEventHandler OnFileChange;
 
         public FileMonitor(string pathToMonitor)
         {
             _watcher = new FileSystemWatcher(pathToMonitor);
+            _watcher.IncludeSubdirectories = true;
 
             _watcher.NotifyFilter = NotifyFilters.FileName | 
                                     NotifyFilters.CreationTime | 
-                                    NotifyFilters.DirectoryName | 
                                     NotifyFilters.LastWrite | 
                                     NotifyFilters.Size;
 
@@ -42,7 +44,26 @@ namespace MakeLove.Core
 
         private void FileUpdated(object sender, FileSystemEventArgs e)
         {
-            OnFileChange(sender, e);
+            var lastDetectedTime = File.GetLastWriteTime(e.FullPath);
+
+            if (e.ChangeType == WatcherChangeTypes.Changed)
+            {
+                if (String.IsNullOrWhiteSpace(_lastFileName) || !_lastFileName.Equals(e.Name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    _lastFileName = e.Name;
+
+                    if (_lastWriteTime != lastDetectedTime)
+                    {
+                        _lastWriteTime = lastDetectedTime;
+
+                        OnFileChange(sender, e);
+                    }
+                }
+            }
+            else
+            {
+                OnFileChange(sender, e);
+            }
         }
     }
 }
