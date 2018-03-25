@@ -17,6 +17,13 @@ namespace MakeLove.Core
         public FileMonitor(string pathToMonitor)
         {
             _watcher = new FileSystemWatcher(pathToMonitor);
+
+            _watcher.NotifyFilter = NotifyFilters.FileName | 
+                                    NotifyFilters.CreationTime | 
+                                    NotifyFilters.DirectoryName | 
+                                    NotifyFilters.LastWrite | 
+                                    NotifyFilters.Size;
+
             _watcher.Created += FileUpdated;
             _watcher.Changed += FileUpdated;
             _watcher.Deleted += FileUpdated;

@@ -35,7 +35,7 @@ namespace MakeLove.Core
             DirectoryHelper.CreateIfNoneExists(_workingDir);
         }
 
-        public void Build(string loveFilePath, string saveFileName)
+        public string Build(string loveFilePath, string saveFileName)
         {
             var targetFileName = Path.Combine(_workingDir, saveFileName);
             var loveExePath = Path.Combine(_workingDir, _loveFiles.Single(x => x.Contains("exe")));
@@ -47,6 +47,8 @@ namespace MakeLove.Core
                 loveExe.CopyTo(outputStream);
                 oldLoveFile.CopyTo(outputStream);
             }
+
+            return targetFileName;
         }
 
         public void PrepareDependencies()
