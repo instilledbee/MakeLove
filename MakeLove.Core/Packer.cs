@@ -13,21 +13,19 @@ namespace MakeLove.Core
     public class Packer
     {
         private string _buildPath;
-        private string _buildFileName;
         private string _gamePath;
 
-        public Packer(string buildPath, string buildFileName, string gamePath)
+        public Packer(string buildPath, string gamePath)
         {
             _buildPath = buildPath;
-            _buildFileName = buildFileName;
             _gamePath = gamePath;
         }
 
-        public string CompressFiles()
+        public string CompressFiles(string buildFileName)
         {
             DirectoryHelper.CreateIfNoneExists(_buildPath);
-
-            var fullPath = Path.Combine(_buildPath, _buildFileName);
+            
+            var fullPath = Path.Combine(_buildPath, buildFileName);
 
             if (File.Exists(fullPath))
                 File.Delete(fullPath);

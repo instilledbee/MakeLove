@@ -31,17 +31,12 @@ namespace MakeLove.App
         {
             Console.WriteLine("Change detected: {0} {1}", e.FullPath, e.ChangeType);
 
-            var packer = new Packer(ConfigHelper.BuildPath, ConfigHelper.LoveBuildName, ConfigHelper.SourcePath);
-            var createdFilePath = packer.CompressFiles();
+            var packer = new Packer(ConfigHelper.BuildPath, ConfigHelper.SourcePath);
+            var createdFilePath = packer.CompressFiles(ConfigHelper.LoveBuildName);
 
             var windowsBuilder = new WindowsBuilder(ConfigHelper.LovePath, ConfigHelper.WindowsBuildPath);
             windowsBuilder.PrepareDependencies();
             windowsBuilder.Build(createdFilePath, ConfigHelper.WindowsBuildName);
-        }
-
-        static void ReadConfigFile()
-        {
-
         }
     }
 }
