@@ -19,7 +19,7 @@ The following values are configurable by editing the `MakeLove.App.config` file 
 * `buildNumber` - The starting build number to use when `useBuildNumber` is true.
 * `buildTargets` - Comma-separated values of platform targets to create builds for. As of 0.1.0, only `windows` is supported.
 
-# [Build](#building)
+# [Building](#building)
 * Install the [.NET Core SDK](https://www.microsoft.com/net/learn/get-started), and your IDE of choice:
     * [Visual Studio](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
     * [Visual Studio Code (with the C# extension)](https://code.visualstudio.com)
