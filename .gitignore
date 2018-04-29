@@ -233,3 +233,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 /.vscode
+/MakeLove.App/MakeLove-0.1.0.zip
+/MakeLove.App/MakeLove-0.1.0-win-x86.zip
+/MakeLove.App/MakeLove-0.1.0-win-x64.zip
