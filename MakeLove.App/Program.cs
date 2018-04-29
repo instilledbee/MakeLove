@@ -38,7 +38,7 @@ namespace MakeLove.App
 
                 // LOVE builds must be created at a minimum
                 var packer = new Packer(ConfigHelper.BuildPath, ConfigHelper.SourcePath);
-                var createdFilePath = packer.CompressFiles(ConfigHelper.LoveBuildName);
+                var createdFilePath = packer.CompressFiles(ConfigHelper.LoveBuildName, ConfigHelper.IgnoredExtensions, ConfigHelper.IgnoredFiles);
 
                 if ((ConfigHelper.CurrentBuildTargets & BuildTargets.Windows) == BuildTargets.Windows)
                 {

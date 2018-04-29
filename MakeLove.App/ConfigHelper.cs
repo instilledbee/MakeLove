@@ -92,6 +92,16 @@ namespace MakeLove.App
             ConfigurationManager.RefreshSection("appSettings");
         }
 
+        /// <summary>
+        /// The file extensions to be ignored when packing the source files
+        /// </summary>
+        internal static List<string> IgnoredExtensions => ConfigurationManager.AppSettings["ignoredExts"].Split(',').ToList();
+
+        /// <summary>
+        /// The filenames to be ignored when packing the source files
+        /// </summary>
+        internal static List<string> IgnoredFiles => ConfigurationManager.AppSettings["ignoredFiles"].Split(',').ToList();
+
         private static int BuildNumber => Convert.ToInt32(ConfigurationManager.AppSettings["buildNumber"]);
     }
 
