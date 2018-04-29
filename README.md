@@ -1,4 +1,6 @@
-# MakeLove
+# MakeLove 
+![Travis Build Status](https://api.travis-ci.org/instilledbee/MakeLove.svg?branch=master)
+
 Automatically create builds for your LOVE game, using C# and .NET Core
 
 # [Installation](#installation)
@@ -36,3 +38,4 @@ The following values are configurable by editing the `MakeLove.App.config` file 
          * Android
          * iOS
          * Web (via love.js)
+
