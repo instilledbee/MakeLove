@@ -26,9 +26,13 @@ The following values are configurable by editing the `MakeLove.App.config` file 
     * [Visual Studio](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
     * [Visual Studio Code (with the C# extension)](https://code.visualstudio.com)
     * [Jetbrains Rider](https://www.jetbrains.com/rider/)
-* Open the `.sln` file
+* Open the `.sln` file and build depending on your chosen IDE.
+
+If you prefer to build using `dotnet-cli`:
+* Open a terminal and navigate to the repository root directory.
 * Run `dotnet restore` to restore the NuGet packages.
-* Run `dotnet build` to create a runnable build of the application.
+* Run `dotnet build MakeLove.sln` to create a runnable build of the application. This will create .DLL files. The application can be run by navigating to the build output directory (usually `bin`) and running `dotnet run MakeLove.App.dll`.
+* Run `dotnet publish` to create artifacts to run the application standalone. Make sure to pass in the parameters depending on which platform(s) you want the build to run on. For more information, see [here](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish?tabs=netcore21)
 
 # [Contributing](#contributing)
 * Please feel free to submit pull requests for bug fixes or additional features. Some feature ideas:
